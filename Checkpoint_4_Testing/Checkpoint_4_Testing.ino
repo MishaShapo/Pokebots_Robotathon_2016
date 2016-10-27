@@ -1,44 +1,32 @@
-//Define servo pins
-// These pins must support analogWrite()
-#define LEFT_SERVO PD_2
-#define RIGHT_SERVO PD_3
+#include <Servo.h>
 
+// Sweep
+// by BARRAGAN <http://barraganstudio.com> 
+// This example code is in the public domain.
 
-//Define Servo speeds
-// Left and right should be inverted
-// Because there are on opposite sides of the bot
-#define LEFT_FORWARD 1700
-#define LEFT_BACKWARD 1300
-#define RIGHT_FORWARD LEFT_BACKWARD
-#define RIGHT_BACKWARD LEFT_FORWARD
-#define SERVO_STOP 1500
-
-
-//Magic numbers that determine how long we wait
-//While executing a turn
-#define CCW_DELAY 250
-#define CW_DELAY 250
-
-Servo left_servo;
-Servo right_servo;
-
-void setup() {
-  // put your setup code here, to run once:
-  left_servo.attach(LEFT_SERVO);
-  right_servo.attach(RIGHT_SERVO);
-  delay(1000);
-
-  left_servo.writeMicroseconds(LEFT_FORWARD);
-  right_servo.writeMicroseconds(RIGHT_FORWARD);
-
-  delay(1000);
-
-  left_servo.writeMicroseconds(SERVO_STOP);
-  right_servo.writeMicroseconds(SERVO_STOP);
-  
-}
-
-void loop() {
-  // put your main code here, to run repeatedly: 
-  
+ 
+Servo myservo;  // create servo object to control a servo 
+                // a maximum of eight servo objects can be created 
+ 
+int pos = 0;    // variable to store the servo position 
+ 
+void setup() 
+{ 
+  myservo.attach(PD_2);  // attaches the servo on pin 2 to the servo object 
+  myservo.writeMicroseconds(1500);
+} 
+ 
+ 
+void loop() 
+{
+  for(pos = 0; pos < 180; pos += 1)  // goes from 0 degrees to 180 degrees 
+  {                                  // in steps of 1 degree 
+    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+    delay(15);                       // waits 15ms for the servo to reach the position 
+  } 
+  for(pos = 180; pos>=1; pos-=1)     // goes from 180 degrees to 0 degrees 
+  {                                
+    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+    delay(15);                       // waits 15ms for the servo to reach the position 
+  }  
 }
